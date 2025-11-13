@@ -50,11 +50,10 @@ class NotifikasiController extends Controller
         ]);
     }
 
-    public function deletNotifKeluar()
+    public function deletNotifKeluar(Request $request)
     {
-        $deleted = Notifikasi::whereHas('transaction', function ($q) {
-            $q->where('tipe', 'keluar');
-        })->delete();
+        $ids = $request->ids;
+        $deleted = Notifikasi::whereIn('id', $ids)->delete();
 
         return response()->json([
             'success' => true,
