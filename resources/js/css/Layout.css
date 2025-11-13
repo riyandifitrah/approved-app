@@ -1,0 +1,11 @@
+/* resources/js/css/Layout.css */
+.layout-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fc;
+  }
+  .main-content {
+    margin-left: auto;
+    flex-grow: 1;
+    padding: 2rem;
+  }

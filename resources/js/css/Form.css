@@ -1,0 +1,13 @@
+.form-control:focus, .form-select:focus, textarea:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 6px rgba(78, 115, 223, 0.3);
+  }
+
+.btn-primary {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+}

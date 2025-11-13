@@ -1,0 +1,35 @@
+.gradient-card {
+    background: linear-gradient(135deg, #200122, #6f0000);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .gradient-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+  }
+  
+  .custom-card {
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+  }
+  
+  .gradient-header {
+    background: linear-gradient(135deg, #200122, #200122);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(78, 115, 223, 0.4);
+  }
+  
