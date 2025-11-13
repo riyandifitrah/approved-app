@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 export default function Riwayat() {
   const role = localStorage.getItem("userRole");
   const history = useHistory();
+  const [filterText, setFilterText] = useState("");
   const [data, setData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
 

@@ -24,32 +24,40 @@ class UtilityController extends Controller
             ], 400);
         }
 
+        $type = str_pad($type, 2, '0', STR_PAD_LEFT);
         $year = date('Y');
         $month = date('m');
 
-        $lastTrans = Tr::where('nomtrans', 'like', $type . $year . $month . '%')
-            ->orderBy('id', 'desc')
+        $prefix = $type . $year . $month;
+
+        $lastTrans = Tr::withTrashed()
+            ->where('nomtrans', 'like', $prefix . '%')
+            ->orderByDesc('nomtrans')
             ->first();
 
-        $number = 1;
         if ($lastTrans) {
-            $number = (int)substr($lastTrans->nomtrans, -4) + 1;
+            $number = (int) substr($lastTrans->nomtrans, -4) + 1;
+            // dd($number);
+        } else {
+            $number = 1;
         }
 
+        $nomtrans = $prefix . str_pad($number, 4, '0', STR_PAD_LEFT);
 
-        $nomtrans = $type . $year . $month . str_pad($number, 4, '0', STR_PAD_LEFT);
-
-        $lastKode = Tr::max('kode');
+        $lastKode = Tr::withTrashed()
+            ->where('kode', 'like', 'BRG%')
+            ->orderByDesc('kode')
+            ->first();
 
         if ($lastKode) {
-            $kodeNum = (int)substr($lastKode, 3);
+            $kodeNum = (int) substr($lastKode->kode, 3);
             $kodeNum++;
         } else {
             $kodeNum = 1;
         }
 
+        $kode = 'BRG' . str_pad($kodeNum, 3, '0', STR_PAD_LEFT);
 
-        $kode = 'BRG' . str_pad($kodeNum, 4, '0', STR_PAD_LEFT);
 
         return response()->json([
             'success' => true,

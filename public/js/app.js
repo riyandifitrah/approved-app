@@ -47643,14 +47643,18 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function Riwayat() {
   var role = localStorage.getItem("userRole");
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_1__.useHistory)();
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState2 = _slicedToArray(_useState, 2),
-    data = _useState2[0],
-    setData = _useState2[1];
+    filterText = _useState2[0],
+    setFilterText = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState4 = _slicedToArray(_useState3, 2),
-    selectedRows = _useState4[0],
-    setSelectedRows = _useState4[1];
+    data = _useState4[0],
+    setData = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    selectedRows = _useState6[0],
+    setSelectedRows = _useState6[1];
   var fetchData = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
       var res, _t;

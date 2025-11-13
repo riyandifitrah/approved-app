@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\Stock;
 use App\Models\Approval;
 use App\Models\Notifikasi;
+use App\Models\Outgoings;
 use Illuminate\Http\Request;
 use App\Jobs\SendTransactionNotificationJob;
 
@@ -286,6 +287,21 @@ class TransactionController extends Controller
         if ($status == 'approved' && $stock) {
             $stock->stok = max(0, $stock->stok - $transaction->jumlah);
             $stock->save();
+            $prefix = '03';
+            $year = date('Y');
+            $month = date('m');
+            $base = $prefix . $year . $month;
+            
+            $lastOut = Outgoings::withTrashed()->where('nomkwit', 'like', $base . '%')
+            ->orderByDesc('nomkwit')
+            ->first();
+
+            $number = 1;
+            if ($lastOut) {
+                $number = (int)substr($lastOut->nomkwit, -4) + 1;
+            }
+            $numbers = str_pad($number, 4, '0', STR_PAD_LEFT);
+            $nomkwit = $base . $numbers;
 
             Approval::create([
                 'nomtrans_id' => $transaction->nomtrans,
@@ -295,6 +311,15 @@ class TransactionController extends Controller
                 'tanggal_approve' => now(),
                 'created_by' => $request->user()->id,
             ]);
+            Outgoings::create([
+                'nomkwit' => $nomkwit,
+                'nomtrans_id' => $transaction->nomtrans,
+                'stock_id' => $stock->id,
+                'jumlah' => $transaction->jumlah,
+                'keterangan' => $catatan ?? null,
+                'created_by' => $request->user()->id,
+            ]);
+            
         } elseif ($status === 'rejected') {
             Approval::create([
                 'nomtrans_id' => $transaction->nomtrans,

@@ -12,12 +12,12 @@ class CreateOutgoingsTable extends Migration
             $table->id();
             $table->string('nomkwit')->unique();
             $table->string('nomtrans_id');
-            $table->string('stock_id');
+            $table->unsignedBigInteger('stock_id');
             $table->integer('jumlah');
             $table->text('keterangan')->nullable();
             $table->timestamps();
             $table->foreign('nomtrans_id')->references('nomtrans')->on('transactions')->onDelete('cascade');
-            $table->foreign('stock_id')->references('kode')->on('stocks')->onDelete('cascade');
+            $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unsignedBigInteger('deleted_by')->nullable();
